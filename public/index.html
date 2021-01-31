@@ -1,10 +1,102 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Image Board</title>
 </head>
 <body>
+    <nav>
+        <div class="logo">
+            <h4>My Image Board</h4>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="#">Pics</a> 
+            </li>
+            <li>
+                <a href="#">More Pics</a> 
+            </li>
+        </ul>
+        <div class="Burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+<h1>IMAGEBOARD</h1>
+
+<!-- see vue documentation for v-for -->
+    <div id='main'>
+        <div class="container">
+            <div v-for="each in images">
+                <img width="250" height="250":src="each.url" alt="">
+                 <p>{{each.title}}</p>      
+                </div>
+        </div>
+ </div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
-</html>
+</html> 
+
+    
+
+
+
+
+    <!-- This container is for our Vue instance! -->
+    <!-- It will have access to our Vue code. -->
+    <!-- <div id='main'> -->
+        <!-- <h2>Hi {{name}}!!! Isn't Vue awesome?!?!? </h2> -->
+        <!-- <h2>10 * 2 = {{10 * 2}}</h2> -->
+        <!-- <h2>LATEST: {{name.toUpperCase()}}</h2>
+        <h3 v-if='seen'>Yay you can see me!!!!</h3>
+        <h3 v-else>'seen' is falsey if you see this!!!</h3> -->
+
+        <!-- LOOPING IN VUE! -->
+        <!-- 'each' is our iterator -->
+        <!-- 'cities' refers to the property inside data in script.js that we're looping through  -->
+        <!-- another way to write @click is v-on:click -->
+        <!-- <ul>
+        <ul v-if='images.length'>
+            <h2>These are the images:</h2>
+            <li v-for='each in images' @click='myFunction'>{{each.name}}, {{each.country}}</li>
+        </ul> -->
+    
+
+<!-- MY NOTES -->
+<!-- <!doctype html>
+<html>
+<head>
+    <title>My Image board</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>My imageboard</h1>
+    <div id='main'>
+        <h2>Hi {{name}}!!! Isn't view awsome</h2>
+        <h2> 10 *2 = {{10*2}}</h2>
+        <h2>Name capitalized: {{name.toUpperCase()}}</h2>
+        <!-- if seen in script is thru we can run that line below -->
+        
+        
+        <!-- <h3 v-if='seen'>You can see me</h3>
+        <h3 v-else> 'seen is falsey if you see this</h3>
+  
+
+    <ul v-if='cities.length'>
+        <h2>These are the cities:</h2>
+        <li v-for='each in cities' @click='myFunction'>{{each.name}}, {{each.country}}</li>
+    </ul>
+  </div>
+    <!-- important order below -->
+
+
+
+
