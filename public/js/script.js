@@ -7,11 +7,13 @@
         el: "#main",
         // data - an object that we add any info to that is dynamic / we want to render onscreen
         data: {
-            name: "Pictures",
-            // seen: true,
             images: [],
-            // title: [],
+            title: "",
+            description: "",
+            username: "",
+            file: null,
         },
+
         // location to talk to the server
         // mounted is a lifecycle method that runs when the Vue instance renders
         mounted: function () {
@@ -30,20 +32,32 @@
                     // console.log("this inside axios: ", self);
                     // axios will ALWAYS store the info coming from the server inside a 'data' property
                     // console.log("response from /cities: ", response.data);
-
                     self.images = response.data;
                 })
                 .catch(function (err) {
-                    console.log("err in /cities: ", err);
+                    console.log("err in /images: ", err);
                 });
-        },
+        }, // request ending
 
         // methods will store ALL the functions we create!!!
+        // this is where we store func for event listeners
         methods: {
-            myFunction: function () {
-                console.log("myFunction is running!!!!");
+            clickHandler: function () {
+                const fd = new FormData();
+                fd.append("title", this.title);
+                fd.append("description", this.description);
+                fd.append("username", this.username);
+                fd.append("file", this.file);
+                axios
+                    .post("/upload", fd)
+                    // .then((response) => console.log("response: ", response))
+                    .then((response) => this.images.push(response.data))
+                    .catch((err) => console.log("err: ", err));
             },
-        },
+            fileSelectHandler: function (e) {
+                this.file = e.target.files[0];
+            },
+        }, // meth ending
     });
 })();
 
