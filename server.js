@@ -41,6 +41,17 @@ app.get("/images", (req, res) => {
         });
 });
 
+app.get("/images/:id", (req, res) => {
+    db.getSelectedImg(req.params.id)
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err, results) => {
+            console.log("error: ", err);
+            res.json(results.rows);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("inside/upload!!");
     // console.log("req.body: ", req.body);
@@ -64,27 +75,6 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         })
         .catch((err) => console.log("err in upload: ", err));
 });
-
-//     if (req.file) {
-//     db.getRecentUpload(
-//         req.body.title,
-//         req.body.description,
-//         req.body.username,
-//         "https://cecile-imageboard.s3.amazonaws.com/" + req.file.filename
-//     ).then(function (results) {
-//         res.json({
-//             newImg: results[0],
-//             success: true,
-//         })
-//         .catch((err) => {
-//             console.log("err in getRecentUpload:", err);
-//         })
-//     } else {
-//         res.json({
-//             success:false
-//         })
-
-// });
 
 app.listen(process.env.PORT || 8080, () => console.log("IB Server running"));
 

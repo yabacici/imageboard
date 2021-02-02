@@ -9,7 +9,7 @@
 <body>
     <nav>
         <div class="logo">
-            <h4>My Image Board</h4>
+            <h4>🎼MUSICimageBOARD🎼</h4>
         </div>
 
         <ul class="nav-links">
@@ -30,7 +30,7 @@
 
 <!-- see vue documentation for v-for -->
     <div id='main'>
-        <h1>🎼MUSICimageBOARD🎼</h1>
+        <h1>upload an image</h1>
         
 <form>
     <!-- vmodel allows to connect with input fields in script.js -->
@@ -42,20 +42,39 @@
 </form>
 
 <div class="container">
-     <div  class="card" v-for="each in images">
-            <img width="250" height="250":src="each.url" alt="">  
+     <div  class="card" v-for="each in images"  @click="selectedImg = each.id">
+            <img width="250" height="250":src="each.url" alt="" >  
                     <p class="title">{{each.title}}</p>             
-    </div>       
+    </div>   
+    <!-- COMPONENT -->
+    <!-- Vue will only show this component if SelectedImg is selected -->
+    <first-component v-if="selectedImg" 
+    :image-id="selectedImg"
+    @close="closeModal" >   
+    </first-component>
+  </div>
 </div>
+<!-- we can return only one element, so one DIV is enough and everything can live inside of it -->
+<script type="text/x-template" id="modal">
+    <!-- <div class="overlay">
+        <h1 @click="closeModal">X</h1>
+        <h2>{{title}}</h2>   
+    </div> -->
+
+    <div class='overlay'>
+            <p @click='closeModal'>X</p>
+            <div class='image'>
+                <img :src='url' alt="">
+                <!-- <div id='footnote'> -->
+                    <h1> {{ title }} </h1>
+                    <h2> {{ description }} </h2>
+                    <h3>uploaded by {{ username }} on {{ date }}</h3>
+                <!-- </div> -->
+            </div>
+        </div>
+</script>
 
 
-
-<!-- <div class="container">
-     <div  class="card" v-for="each in images">
-            <img width="250" height="250":src="each.url" alt="">  
-                    <p class="title">{{each.title}}</p>             
-    </div>       
-</div> -->
 
 
     <script src="/js/vue.js"></script>

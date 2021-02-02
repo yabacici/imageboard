@@ -1,5 +1,43 @@
 // console.log("script is linked");
 // this file is where all of our Vue code will exist!!
+// here vue comp takes 2 arg(string , obj(which temp to use))
+Vue.component("first-component", {
+    template: "#modal",
+    // data with func so each component has its own return
+    data: function () {
+        return {
+            // name: "Cecile",
+            // count: 0,
+            url: "",
+            username: "",
+            title: "",
+            description: "",
+            date: "",
+        };
+    },
+    props: ["imageId"],
+    mounted: function () {
+        // console.log("component mounted", this.imageId);
+        var self = this;
+        axios.get(`/images/${this.imageId}`).then(function (response) {
+            // console.log(response.data[0]);
+            self.url = response.data[0].url;
+            self.username = response.data[0].username;
+            self.title = response.data[0].title;
+            self.description = response.data[0].description;
+            self.date = response.data[0].created_at;
+        });
+    },
+    methods: {
+        // increaseCount: function () {
+        //     this.count++;
+        // },
+        closeModal: function () {
+            // console.log("please close modal");
+            this.$emit("close");
+        },
+    },
+});
 
 (function () {
     new Vue({
@@ -12,6 +50,10 @@
             description: "",
             username: "",
             file: null,
+            // selectedImg: 1,
+            // when the page loads it's not there so null
+            // when user clicks goes to 1 and pops up new page
+            selectedImg: null,
         },
 
         // location to talk to the server
@@ -42,6 +84,13 @@
         // methods will store ALL the functions we create!!!
         // this is where we store func for event listeners
         methods: {
+            // closeMe: function () {
+            //     console.log("clooooose me");
+            // },
+            closeModal: function () {
+                console.log("clooooose me");
+                this.selectedImg = null;
+            },
             clickHandler: function () {
                 const fd = new FormData();
                 fd.append("title", this.title);

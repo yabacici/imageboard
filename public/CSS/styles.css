@@ -2,13 +2,41 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-} */
+}  */
 
 body {
     justify-content: center;
     align-items: center;
     /* background: #16384c; */
     background: grey;
+}
+
+.overlay {
+    background-color: grey;
+    /* background-image: url(music.jpg); */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-style: italic;
+}
+
+p {
+}
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 nav {
@@ -23,7 +51,7 @@ nav {
 
 .logo {
     color: rgb(226, 226, 226);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 5px;
     font-size: 20px;
 }
@@ -69,12 +97,12 @@ nav {
     height: 100vh;
     width: 40vw;
     align-items: center;
-    grid-gap: 20px;
+    grid-gap: 50px;
     margin-top: 30px;
     font-family: roboto;
     border-radius: 18px;
     /* responsive with auto-fit */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
 }
 
 .card {
