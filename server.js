@@ -26,7 +26,7 @@ const uploader = multer({
 
 app.use(express.static("public"));
 app.use(express.json());
-
+//listen for click on image//
 app.get("/images", (req, res) => {
     // console.log("/images route has been hit!!!");
     // res.json - how we send a response to the client!
@@ -40,7 +40,7 @@ app.get("/images", (req, res) => {
             console.log("err in getImages:", err);
         });
 });
-
+//listen for click on image//
 app.get("/images/:id", (req, res) => {
     db.getSelectedImg(req.params.id)
         .then((results) => {
@@ -51,7 +51,7 @@ app.get("/images/:id", (req, res) => {
             res.json(results.rows);
         });
 });
-
+//insert into db//
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("inside/upload!!");
     // console.log("req.body: ", req.body);
@@ -74,6 +74,35 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
             res.json(results.rows[0]);
         })
         .catch((err) => console.log("err in upload: ", err));
+});
+
+app.get("/more/:id", (req, res) => {
+    db.getMoreImages(req.params.id).then((results) => {
+        console.log("results: ", results.rows);
+        res.json(results.rows);
+    });
+});
+
+//comments listeners////////
+app.get("/comments/:imageId", (req, res) => {
+    db.getComments(req.params.imageId).then((results) => {
+        res.json(results.rows);
+    });
+});
+
+app.post("/comment/:imageId", (req, res) => {
+    console.log("comment here!");
+    // console.log(req.body);
+    db.addComment(req.body.comment, req.body.username, req.params.imageId)
+        .then((results) => {
+            console.log("comment added");
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("error in insert coment: ", err);
+        });
+
+    // push forward the comments from db
 });
 
 app.listen(process.env.PORT || 8080, () => console.log("IB Server running"));

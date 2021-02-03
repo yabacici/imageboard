@@ -30,7 +30,8 @@
 
 <!-- see vue documentation for v-for -->
     <div id='main'>
-        <h1>upload an image</h1>
+        <h1>image upload</h1>
+        <!-- <image-modal v-if= "seen" :id="modal_id" @close="seen=null"><image-comment></image-comment></image-modal> -->
         
 <form>
     <!-- vmodel allows to connect with input fields in script.js -->
@@ -40,18 +41,19 @@
     <input  @change="fileSelectHandler" type="file" name="file" accept="image/*">
     <button @click.prevent="clickHandler">Submit</button>
 </form>
-
 <div class="container">
      <div  class="card" v-for="each in images"  @click="selectedImg = each.id">
             <img width="250" height="250":src="each.url" alt="" >  
-                    <p class="title">{{each.title}}</p>             
-    </div>   
+                    <p class="title">{{each.title}}</p>                             
+    </div> 
+    
+   <button id="moreBtn" v-if = "getMore" @click ="moreImages" >more</button>
+
+   
     <!-- COMPONENT -->
     <!-- Vue will only show this component if SelectedImg is selected -->
-    <first-component v-if="selectedImg" 
-    :image-id="selectedImg"
-    @close="closeModal" >   
-    </first-component>
+    <first-component v-if="selectedImg" :image-id="selectedImg"@close="closeModal" ></first-component>
+
   </div>
 </div>
 <!-- we can return only one element, so one DIV is enough and everything can live inside of it -->
@@ -60,20 +62,30 @@
         <h1 @click="closeModal">X</h1>
         <h2>{{title}}</h2>   
     </div> -->
-
-    <div class='overlay'>
-            <p @click='closeModal'>X</p>
-            <div class='image'>
-                <img :src='url' alt="">
-                <!-- <div id='footnote'> -->
-                    <h1> {{ title }} </h1>
-                    <h2> {{ description }} </h2>
-                    <h3>uploaded by {{ username }} on {{ date }}</h3>
-                <!-- </div> -->
-            </div>
+        <div class='overlay'>
+            <button @click='closeModal'>X</button>
+                <div class='image'>
+                    <img :src='url' alt="">
+                        <h1> {{ title }} </h1>
+                        <h2> {{ description }} </h2>
+                        <h3>uploaded by {{ username }} on {{ date }}</h3>
+                         <second-component :image-id="imageId">
+                    </second-component>
+                 </div>
         </div>
 </script>
 
+<script type='text/x-template' id="comment">
+        <div class="comment" >
+            <!-- All the modal code has to be inside of one div, you can put other divs in it -->
+            <textarea v-model = "comment" type="text" name="comment" placeholder="share a few words"></textarea>
+            <input v-model = "username"type="text" name="username" placeholder="Your username">
+            <button @click.prevent="commentHandler">Submit</button> 
+            <!-- <input v-model="comments" placeholder="{{comment}}">  -->
+        </div>
+    </script>
+
+     
 
 
 

@@ -8,18 +8,61 @@ body {
     justify-content: center;
     align-items: center;
     /* background: #16384c; */
-    background: grey;
+    background: rgb(123, 109, 127);
+}
+
+button {
+    position: relative;
+    background-color: #16384c;
+    border: none;
+    font-size: 10px;
+    color: #ffffff;
+    padding: 20px;
+    width: 100px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+button:after {
+    content: "";
+    background: pink;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s;
+}
+
+button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s;
 }
 
 .overlay {
-    background-color: grey;
+    background-color: black;
     /* background-image: url(music.jpg); */
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 100px;
+    right: 100px;
+    bottom: 100px;
+    left: 25px;
+    opacity: 0.8;
+    color: white;
 }
+
+/* .overlay:hover {
+    opacity: 1;
+} */
 
 h1,
 h2,
@@ -27,17 +70,35 @@ h3 {
     text-align: center;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     font-style: italic;
+    padding: 15px 0;
 }
 
-p {
+.overlay p {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .image {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 60%;
+    height: 60%;
 }
+
+/* form {
+    align-items: center;
+}
+input,
+select,
+textarea {
+    width: 200px;
+    margin: 10px;
+    padding: 9px 10px;
+    font-family: "Source Code Pro", monospace;
+    color: #666;
+} */
 
 nav {
     display: flex;
@@ -89,7 +150,9 @@ nav {
 
 /* .container {
     display: flex;
+    justify-content: center;
     flex-direction: row;
+    
 } */
 
 .container {
@@ -104,17 +167,16 @@ nav {
     /* responsive with auto-fit */
     grid-template-columns: repeat(3, minmax(300px, 1fr));
 }
-
 .card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: solid 3px black;
+    border: solid 1px black;
     background: whitesmoke;
-    box-shadow: 5px 10px 25px rgba(0, 0, 0, 2);
-    border-radius: 18px;
+    box-shadow: 5px 10px 25px rgb(220, 173, 234);
+    border-radius: 10px;
     /* hover effect see card:hover */
-    transition: 0.6;
+    transition: 0.8;
     cursor: pointer;
 }
 
@@ -124,12 +186,14 @@ nav {
 }
 
 img {
-    max-width: 100%;
+    /* max-width: 50%; */
     margin-top: 20px;
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 5px;
-    border: solid 3px black;
+    border: solid 1px black;
     align-items: center;
+    width: 50%;
+    height: 50%;
 }
 
 .title {
@@ -198,7 +262,7 @@ input {
         transform: translateX(0px);
     }
 }
-.toggle .line1 {
+/* .toggle .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
 .toggle .line2 {
@@ -206,4 +270,4 @@ input {
 }
 .toggle .line3 {
     transform: rotate(45deg) translate(-5px, -6px);
-}
+} */
