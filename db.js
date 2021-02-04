@@ -36,11 +36,11 @@ module.exports.getLastImgId = function (lastId) {
     const q = `SELECT url, title, id, (
       SELECT id FROM images
       ORDER BY id ASC
-      LIMIT 1
+      LIMIT 3
   ) AS "smallestId" FROM images
   WHERE id < $1
   ORDER BY id DESC
-  LIMIT 3`;
+  LIMIT 6`;
     const params = [lastId];
     return db.query(q, params);
 };

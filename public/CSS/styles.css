@@ -30,6 +30,10 @@ button {
     border-radius: 10px;
 }
 
+#moreBtn {
+    align-items: center;
+}
+
 button:after {
     content: "";
     background: pink;
@@ -50,7 +54,7 @@ button:active:after {
     transition: 0s;
 }
 
-.overlay {
+/* .overlay {
     background-color: black;
     position: absolute;
     top: 50px;
@@ -61,26 +65,35 @@ button:active:after {
     width: 100%;
     opacity: 0.9;
     color: yellowgreen;
-}
+} */
 .overlay {
-    margin: auto;
-    position: absolute;
-    top: 50px;
-    left: 50px;
+    /* margin: auto; */
+    position: fixed;
+    /* top: 50px; */
+    left: 25px;
     bottom: 50px;
-    right: 50px;
+    /* right: 25px; */
     background-color: #000;
-    color: #fff;
-    z-index: 5;
+    color: rgb(102, 79, 132);
+    opacity: 0.9;
+    z-index: 2;
+    text-align: center;
 }
 
 form {
     display: inline-block;
 }
 
-/* .overlay:hover {
-    opacity: 1;
-} */
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #eee;
+    /* box-shadow: 0 5 20px 5px rgba(0, 0, 0, 0.06); */
+    box-shadow: 5 10 2px 5px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    width: 100%;
+    font: outline;
+}
 
 h1,
 h2,

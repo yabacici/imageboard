@@ -215,7 +215,7 @@ Vue.component("first-component", {
 
                             if (
                                 response.data[i].id ===
-                                response.data[0].smallestId
+                                response.data[i].smallestId
                             ) {
                                 self.getMore = false;
                                 console.log(
