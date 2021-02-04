@@ -14,9 +14,9 @@ Vue.component("second-component", {
 
     mounted: function () {
         var self = this;
-        axios.get(`/comments/${this.imageId}`).then(function (res) {
+        axios.get(`/comment/${this.imageId}`).then(function (res) {
             console.log(res.data);
-            self.comments = res.data;
+            self.comment = res.data;
         });
     },
     methods: {
@@ -47,11 +47,11 @@ Vue.component("first-component", {
             title: "",
             description: "",
             date: "",
-
-            // comments: [],
+            id: "",
         };
     },
     props: ["imageId"],
+
     mounted: function () {
         // console.log("component mounted", this.imageId);
         var self = this;
@@ -63,6 +63,11 @@ Vue.component("first-component", {
             self.description = response.data[0].description;
             self.date = response.data[0].created_at;
         });
+    },
+    watch: {
+        selectedImg: function () {
+            console.log("modal should show new img");
+        },
     },
     methods: {
         // increaseCount: function () {
@@ -90,11 +95,12 @@ Vue.component("first-component", {
             // when the page loads it's not there so null
             // when user clicks goes to 1 and pops up new page
             selectedImg: null,
-            // smallestId: "",
+            // selectedImg: location.hash.slice(1),
+            smallestId: "",
             getMore: true,
-            lastImg: 0,
-            seen: false,
+            // lastImg: 0,
             imageId: "",
+            id: "",
         },
 
         // location to talk to the server
@@ -102,6 +108,11 @@ Vue.component("first-component", {
         mounted: function () {
             // console.log("my vue instance has mounted");
             console.log("this outside axios", this);
+            addEventListener("hashchange", () => {
+                console.log("hash got updated:", location.hash);
+                // want to reset the val of selectedImg
+                this.selectedImg = location.hash.slice(1);
+            });
             // AXIOS grabs info and stores it
             // talk to server via axios
             // for the server to listen we need a route on the server
@@ -146,20 +157,42 @@ Vue.component("first-component", {
                     .then((response) => this.images.push(response.data))
                     .catch((err) => console.log("err: ", err));
             },
-            moreImages: function () {
-                var self = this;
-                axios.get(`/more/${self.lastImg}`).then(function ({ data }) {
-                    console.log("LastImg: ", self.lastImg);
-                    console.log("LowestId: ", data[0].lowestId);
+            // moreImages: function () {
+            //     var self = this;
+            //     axios.get(`/more/${self.lastImg}`).then(function ({ data }) {
+            //         console.log("LastImg: ", self.lastImg);
+            //         console.log("LowestId: ", data[0].lowestId);
 
-                    self.lastImg = self.images[self.images.length - 1].id;
-                    for (let i = 0; i < data.length; i++) {
-                        if (data[i].id === data[i].lowestId) {
-                            self.more = false;
+            //         self.lastImg = self.images[self.images.length - 1].id;
+            //         for (let i = 0; i < data.length; i++) {
+            //             if (data[i].id === data[i].lowestId) {
+            //                 self.more = false;
+            //             }
+            //         }
+            //         self.images = [...self.images, ...data];
+            //     });
+            // },
+            moreImages: function () {
+                var smallestId = this.images[this.images.length - 1].id;
+                // console.log(smallestId);
+                var self = this;
+                axios
+                    .get(`/more/${smallestId}`)
+                    .then(function (response) {
+                        for (var i = 0; i < response.data.length; i++) {
+                            self.images.push(response.data[i]);
+
+                            if (
+                                response.data[i].id ===
+                                response.data[0].lowestId
+                            ) {
+                                self.getmore = false;
+                            }
                         }
-                    }
-                    self.images = [...self.images, ...data];
-                });
+                    })
+                    .catch(function (err) {
+                        console.log("err in axios load more: ", err);
+                    });
             },
             fileSelectHandler: function (e) {
                 this.file = e.target.files[0];

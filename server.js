@@ -83,23 +83,45 @@ app.get("/more/:id", (req, res) => {
     });
 });
 
+app.get("/more/:smallestId", (req, res) => {
+    let smallestId = req.params;
+    // console.log( smallestId);
+    db.getLastImgId(smallestId)
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("error in loading more results", err);
+        });
+});
+
 //comments listeners////////
+// app.get("/comments/:imageId", (req, res) => {
+//     db.getComments(req.params.imageId).then((results) => {
+//         res.json(results.rows);
+//     });
+// });
 app.get("/comments/:imageId", (req, res) => {
-    db.getComments(req.params.imageId).then((results) => {
-        res.json(results.rows);
-    });
+    let imageId = req.params;
+    db.getComments(imageId)
+        .then((results) => {
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("error in getComments: ", err);
+        });
 });
 
 app.post("/comment/:imageId", (req, res) => {
     console.log("comment here!");
     // console.log(req.body);
-    db.addComment(req.body.comment, req.body.username, req.params.imageId)
+    db.addComment(req.body.username, req.body.comment, req.params.imageId)
         .then((results) => {
             console.log("comment added");
             res.json(results.rows);
         })
         .catch((err) => {
-            console.log("error in insert coment: ", err);
+            console.log("error in addComment: ", err);
         });
 
     // push forward the comments from db

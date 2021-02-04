@@ -55,6 +55,9 @@
     <first-component v-if="selectedImg" :image-id="selectedImg"@close="closeModal" ></first-component>
 
   </div>
+  <!-- <footer>    
+     <p class="footer-text">ImageBoard by Cécile Eboa © 2021</p>
+ </footer> -->
 </div>
 <!-- we can return only one element, so one DIV is enough and everything can live inside of it -->
 <script type="text/x-template" id="modal">
@@ -69,7 +72,7 @@
                         <h1> {{ title }} </h1>
                         <h2> {{ description }} </h2>
                         <h3>uploaded by {{ username }} on {{ date }}</h3>
-                         <second-component :image-id="imageId">
+                         <second-component :id="id">
                     </second-component>
                  </div>
         </div>
