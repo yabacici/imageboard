@@ -16,9 +16,9 @@
             <li>
                 <a href="#">Pics</a> 
             </li>
-            <li>
+            <!-- <li>
                 <a href="#">More Pics</a> 
-            </li>
+            </li> -->
         </ul>
         <div class="Burger">
             <div class="line1"></div>
@@ -31,7 +31,6 @@
 <!-- see vue documentation for v-for -->
     <div id='main'>
         <h1>image upload</h1>
-        <!-- <image-modal v-if= "seen" :id="modal_id" @close="seen=null"><image-comment></image-comment></image-modal> -->
         
 <form>
     <!-- vmodel allows to connect with input fields in script.js -->
@@ -43,7 +42,7 @@
 </form>
 <div class="container">
      <div  class="card" v-for="each in images"  @click="selectedImg = each.id">
-            <img width="250" height="250":src="each.url" alt="" >  
+            <img width="200" height="200":src="each.url" alt="" >  
                     <p class="title">{{each.title}}</p>                             
     </div> 
     
@@ -76,13 +75,14 @@
                     </second-component>
                  </div>
         </div>
+        
 </script>
 
 <script type='text/x-template' id="comment">
         <div>
             <div class="comment" >
                 <!-- All the modal code has to be inside of one div, you can put other divs in it -->
-                <textarea v-model="comment" type="text" name="comment" placeholder="share a few words"></textarea>
+                <input v-model="comment" type="text" name="comment" placeholder="share a few words">
                 <input v-model="username" type="text" name="username" placeholder="Your username">
                 <button @click.prevent="commentHandler">Submit</button>   
             </div>

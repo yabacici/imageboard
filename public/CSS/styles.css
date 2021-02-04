@@ -52,13 +52,26 @@ button:active:after {
 
 .overlay {
     background-color: black;
-    position: fixed;
-    top: 100px;
+    position: absolute;
+    top: 50px;
     right: 100px;
     bottom: 100px;
-    left: 25px;
-    opacity: 0.8;
-    color: white;
+    left: 50px;
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+    color: yellowgreen;
+}
+.overlay {
+    margin: auto;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    bottom: 50px;
+    right: 50px;
+    background-color: #000;
+    color: #fff;
+    z-index: 5;
 }
 
 form {

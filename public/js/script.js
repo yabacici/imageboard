@@ -80,6 +80,20 @@ Vue.component("first-component", {
         selectedImg: function () {
             console.log("modal should show new img");
         },
+        //     var self = this;
+        //     axios.get("/images/" + self.imageId).then(function (res) {
+        //         if (res.data.length > 0) {
+        //             self.images = res.data[0];
+        //             // console.log("id");
+        //         } else {
+        //             // console.log("no id");
+        //             function closeModal() {
+        //                 self.$emit("close modal");
+        //             }
+        //             closeModal();
+        //         }
+        //     });
+        // },
     },
     methods: {
         // increaseCount: function () {
@@ -119,12 +133,13 @@ Vue.component("first-component", {
         // location to talk to the server
         // mounted is a lifecycle method that runs when the Vue instance renders
         mounted: function () {
+            // var self = this;
             // console.log("my vue instance has mounted");
-            console.log("this outside axios", this);
-            addEventListener("hashchange", () => {
+            // console.log("this outside axios", this);
+            addEventListener("hashchange", function () {
                 console.log("hash got updated:", location.hash);
                 // want to reset the val of selectedImg
-                this.selectedImg = location.hash.slice(1);
+                // self.imageId = location.hash.slice(1);
             });
             // AXIOS grabs info and stores it
             // talk to server via axios
@@ -156,6 +171,7 @@ Vue.component("first-component", {
             // },
             closeModal: function () {
                 console.log("clooooose me");
+                // location.hash = "";
                 this.selectedImg = null;
             },
             clickHandler: function () {
@@ -195,11 +211,11 @@ Vue.component("first-component", {
                     .then(function (response) {
                         console.log("log selfgetmore:", self.getMore);
                         for (var i = 0; i < response.data.length; i++) {
-                            // self.images.push(response.data[i]);
+                            self.images.push(response.data[i]);
 
                             if (
                                 response.data[i].id ===
-                                response.data[i].smallestId
+                                response.data[0].smallestId
                             ) {
                                 self.getMore = false;
                                 console.log(
