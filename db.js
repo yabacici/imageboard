@@ -37,7 +37,7 @@ module.exports.getLastImgId = function (lastId) {
       SELECT id FROM images
       ORDER BY id ASC
       LIMIT 1
-  ) AS "lowestId" FROM images
+  ) AS "smallestId" FROM images
   WHERE id < $1
   ORDER BY id DESC
   LIMIT 3`;

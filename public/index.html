@@ -47,12 +47,12 @@
                     <p class="title">{{each.title}}</p>                             
     </div> 
     
-   <button id="moreBtn" v-if = "getMore" @click ="moreImages" >more</button>
+   <button id="moreBtn" v-if ="getMore" @click ="moreImages" >more</button>
 
    
     <!-- COMPONENT -->
     <!-- Vue will only show this component if SelectedImg is selected -->
-    <first-component v-if="selectedImg" :image-id="selectedImg"@close="closeModal" ></first-component>
+    <first-component v-if="selectedImg" :image-id="selectedImg"@close="closeModal"></first-component>
 
   </div>
   <!-- <footer>    
@@ -72,7 +72,7 @@
                         <h1> {{ title }} </h1>
                         <h2> {{ description }} </h2>
                         <h3>uploaded by {{ username }} on {{ date }}</h3>
-                         <second-component :id="id">
+                         <second-component :image-id="imageId">
                     </second-component>
                  </div>
         </div>
@@ -83,9 +83,15 @@
             <!-- All the modal code has to be inside of one div, you can put other divs in it -->
             <textarea v-model = "comment" type="text" name="comment" placeholder="share a few words"></textarea>
             <input v-model = "username"type="text" name="username" placeholder="Your username">
-            <button @click.prevent="commentHandler">Submit</button> 
-            <!-- <input v-model="comments" placeholder="{{comment}}">  -->
+            <button @click.prevent="commentHandler">Submit</button>   
         </div>
+
+        <div class="comment-section">
+            <div class="show-comment" v-for="each in comments"> {{each.username}}
+                {{each.comment}}
+            </div>
+        </div>
+
     </script>
 
      

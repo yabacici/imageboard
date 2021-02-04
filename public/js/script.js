@@ -14,21 +14,33 @@ Vue.component("second-component", {
 
     mounted: function () {
         var self = this;
-        axios.get(`/comment/${this.imageId}`).then(function (res) {
+        axios.get(`/comments/${this.imageId}`).then(function (res) {
             console.log(res.data);
-            self.comment = res.data;
+            self.username = res.data[0].username;
+            self.comment = res.data[0].comment;
+            self.comments = res.data;
         });
     },
     methods: {
         commentHandler: function () {
+            var self = this;
+            var obj = {
+                comment: this.comment,
+                username: this.username,
+                imageId: this.imageId,
+            };
             axios
-                .post("/comment", {
-                    comment: this.comment,
-                    username: this.username,
-                })
-                .then((res) => {
-                    console.log("upload res:", res.data.comment);
-                    this.comments.unshift(res.data);
+                .post(`/comment/${this.imageId}`, obj)
+                // comment: self.comment,
+                // username: self.username,
+                // imageId: self.imageId,
+
+                .then(function (res) {
+                    // obj.id = res.data.id;
+                    // obj.comment = res.data.comment;
+                    // obj.username = res.data.username;
+                    // self.comments.push(obj);
+                    self.comments.push(res.data[0]);
                 })
                 .catch((err) => console.log("err", err));
         },
@@ -100,6 +112,7 @@ Vue.component("first-component", {
             getMore: true,
             // lastImg: 0,
             imageId: "",
+            // imageId: location.hash.slice(1) || 0,
             id: "",
         },
 
@@ -127,8 +140,8 @@ Vue.component("first-component", {
                     // axios will ALWAYS store the info coming from the server inside a 'data' property
                     // console.log("response from /cities: ", response.data);
                     self.images = response.data;
-                    self.lastImg = self.images[self.images.length - 1].id;
-                    console.log("latestId:", self.lastImg);
+                    self.smallestId = self.images[self.images.length - 1].id;
+                    console.log("smallestId:", self.smallestId);
                 })
                 .catch(function (err) {
                     console.log("err in /images: ", err);
@@ -158,15 +171,16 @@ Vue.component("first-component", {
                     .catch((err) => console.log("err: ", err));
             },
             // moreImages: function () {
+            //     var smallestId = this.images[this.images.length - 1].id;
             //     var self = this;
-            //     axios.get(`/more/${self.lastImg}`).then(function ({ data }) {
-            //         console.log("LastImg: ", self.lastImg);
-            //         console.log("LowestId: ", data[0].lowestId);
+            //     axios.get(`/more/${smallestId}`).then(function ({ data }) {
+            //         // console.log("LastImg: ", self.smallestId);
+            //         console.log("smallestId: ", data[0].smallestId);
 
-            //         self.lastImg = self.images[self.images.length - 1].id;
+            //         self.smallestId = self.images[self.images.length - 1].id;
             //         for (let i = 0; i < data.length; i++) {
-            //             if (data[i].id === data[i].lowestId) {
-            //                 self.more = false;
+            //             if (data[i].id === data[i].smallestId) {
+            //                 self.getMore = false;
             //             }
             //         }
             //         self.images = [...self.images, ...data];
@@ -174,19 +188,24 @@ Vue.component("first-component", {
             // },
             moreImages: function () {
                 var smallestId = this.images[this.images.length - 1].id;
-                // console.log(smallestId);
+                console.log("this is smallestid:", smallestId);
                 var self = this;
                 axios
                     .get(`/more/${smallestId}`)
                     .then(function (response) {
+                        console.log("log selfgetmore:", self.getMore);
                         for (var i = 0; i < response.data.length; i++) {
-                            self.images.push(response.data[i]);
+                            // self.images.push(response.data[i]);
 
                             if (
                                 response.data[i].id ===
-                                response.data[0].lowestId
+                                response.data[i].smallestId
                             ) {
-                                self.getmore = false;
+                                self.getMore = false;
+                                console.log(
+                                    "log selfgetmore after:",
+                                    self.getMore
+                                );
                             }
                         }
                     })

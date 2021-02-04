@@ -102,8 +102,8 @@ app.get("/more/:smallestId", (req, res) => {
 //     });
 // });
 app.get("/comments/:imageId", (req, res) => {
-    let imageId = req.params;
-    db.getComments(imageId)
+    const imgId = parseInt(req.params.imageId);
+    db.getComments(imgId)
         .then((results) => {
             res.json(results.rows);
         })
@@ -113,12 +113,19 @@ app.get("/comments/:imageId", (req, res) => {
 });
 
 app.post("/comment/:imageId", (req, res) => {
+    // convert into interger
+    const imgId = parseInt(req.params.imageId);
+    // const imgId = parseInt(req.body.imageId);
     console.log("comment here!");
     // console.log(req.body);
-    db.addComment(req.body.username, req.body.comment, req.params.imageId)
-        .then((results) => {
-            console.log("comment added");
-            res.json(results.rows);
+    db.addComment(req.body.username, req.body.comment, imgId)
+        .then(({ rows }) => {
+            const commentData = {
+                comment: rows[0].comment,
+                username: rows[0].username,
+                created_at: rows[0].created_at,
+            };
+            res.json(commentData);
         })
         .catch((err) => {
             console.log("error in addComment: ", err);
