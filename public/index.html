@@ -40,8 +40,14 @@
     <input  @change="fileSelectHandler" type="file" name="file" accept="image/*">
     <button @click.prevent="clickHandler">Submit</button>
 </form>
+<h1>latest images</h1>
 <div class="container">
-     <div  class="card" v-for="each in images"  @click="selectedImg = each.id">
+     <!-- <div  class="card" v-for="each in images"  @click="selectedImg = each.id">
+            <img width="200" height="200":src="each.url" alt="" >  
+                    <p class="title">{{each.title}}</p>                             
+    </div>  -->
+     <div  class="card" v-for="each in images" >
+          <a :href="'#' + each.id"></a>
             <img width="200" height="200":src="each.url" alt="" >  
                     <p class="title">{{each.title}}</p>                             
     </div> 

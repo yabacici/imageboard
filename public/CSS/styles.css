@@ -31,7 +31,7 @@ button {
 }
 
 #moreBtn {
-    align-items: center;
+    text-align: center;
 }
 
 button:after {

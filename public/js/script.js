@@ -21,6 +21,23 @@ Vue.component("second-component", {
             self.comments = res.data;
         });
     },
+
+    watch: {
+        id: function () {
+            console.log("modal shows new img");
+            var self = this;
+
+            axios
+                .get(`/comments/+ ${this.id}`)
+                .then(function (response) {
+                    //  // console.log("this inside axios: ", self);
+                    self.comments = response.data.comments;
+                })
+                .catch(function (err) {
+                    console.log("err in /selected: ", err);
+                });
+        },
+    },
     methods: {
         commentHandler: function () {
             var self = this;
@@ -41,6 +58,8 @@ Vue.component("second-component", {
                     // obj.username = res.data.username;
                     // self.comments.push(obj);
                     self.comments.push(res.data[0]);
+                    self.username.data = "";
+                    self.comment.data = "";
                 })
                 .catch((err) => console.log("err", err));
         },
@@ -71,29 +90,33 @@ Vue.component("first-component", {
             // console.log(response.data[0]);
             self.url = response.data[0].url;
             self.username = response.data[0].username;
+
             self.title = response.data[0].title;
             self.description = response.data[0].description;
             self.date = response.data[0].created_at;
         });
     },
     watch: {
-        selectedImg: function () {
+        id: function () {
             console.log("modal should show new img");
+            var self = this;
+
+            axios
+                .get(`/images/+ ${this.id}`)
+                .then(function (response) {
+                    //  // console.log("this inside axios: ", self);
+
+                    self.url = response.data[0].url;
+                    self.username = response.data[0].username;
+
+                    self.title = response.data[0].title;
+                    self.description = response.data[0].description;
+                    self.date = response.data[0].created_at;
+                })
+                .catch(function (err) {
+                    console.log("err in /selected: ", err);
+                });
         },
-        //     var self = this;
-        //     axios.get("/images/" + self.imageId).then(function (res) {
-        //         if (res.data.length > 0) {
-        //             self.images = res.data[0];
-        //             // console.log("id");
-        //         } else {
-        //             // console.log("no id");
-        //             function closeModal() {
-        //                 self.$emit("close modal");
-        //             }
-        //             closeModal();
-        //         }
-        //     });
-        // },
     },
     methods: {
         // increaseCount: function () {
@@ -120,8 +143,8 @@ Vue.component("first-component", {
             // selectedImg: 1,
             // when the page loads it's not there so null
             // when user clicks goes to 1 and pops up new page
-            selectedImg: null,
-            // selectedImg: location.hash.slice(1),
+            // selectedImg: null,
+            selectedImg: location.hash.slice(1),
             smallestId: "",
             getMore: true,
             lastImageId: "",
@@ -140,7 +163,7 @@ Vue.component("first-component", {
             addEventListener("hashchange", function () {
                 console.log("hash got updated:", location.hash);
                 // want to reset the val of selectedImg
-                // self.imageId = location.hash.slice(1);
+                self.selectedImage = location.hash.slice(1);
             });
             // AXIOS grabs info and stores it
             // talk to server via axios
