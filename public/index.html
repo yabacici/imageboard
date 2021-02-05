@@ -47,9 +47,10 @@
                     <p class="title">{{each.title}}</p>                             
     </div>  -->
      <div  class="card" v-for="each in images" >
-          <a :href="'#' + each.id"></a>
+          <a :href="'#' + each.id">
             <img width="200" height="200":src="each.url" alt="" >  
-                    <p class="title">{{each.title}}</p>                             
+                    <p class="title">{{each.title}}</p> 
+                    </a>                            
     </div> 
     
    <button id="moreBtn" v-if ="getMore" @click ="moreImages" >more</button>

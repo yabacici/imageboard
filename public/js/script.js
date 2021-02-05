@@ -23,12 +23,12 @@ Vue.component("second-component", {
     },
 
     watch: {
-        id: function () {
+        imageId: function () {
             console.log("modal shows new img");
             var self = this;
 
             axios
-                .get(`/comments/+ ${this.id}`)
+                .get(`/comments/+ ${this.imageId}`)
                 .then(function (response) {
                     //  // console.log("this inside axios: ", self);
                     self.comments = response.data.comments;
@@ -97,12 +97,12 @@ Vue.component("first-component", {
         });
     },
     watch: {
-        id: function () {
+        imageId: function () {
             console.log("modal should show new img");
             var self = this;
 
             axios
-                .get(`/images/+ ${this.id}`)
+                .get(`/images/${this.imageId}`)
                 .then(function (response) {
                     //  // console.log("this inside axios: ", self);
 
@@ -163,7 +163,7 @@ Vue.component("first-component", {
             addEventListener("hashchange", function () {
                 console.log("hash got updated:", location.hash);
                 // want to reset the val of selectedImg
-                self.selectedImage = location.hash.slice(1);
+                self.selectedImg = location.hash.slice(1);
             });
             // AXIOS grabs info and stores it
             // talk to server via axios
