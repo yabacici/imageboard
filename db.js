@@ -56,3 +56,7 @@ module.exports.addComment = function (username, comment, imageId) {
     const params = [username, comment, imageId];
     return db.query(q, params);
 };
+
+module.exports.lastImage = function () {
+    return db.query(`SELECT id FROM images ORDER BY id ASC LIMIT 1`);
+};

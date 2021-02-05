@@ -124,6 +124,7 @@ Vue.component("first-component", {
             // selectedImg: location.hash.slice(1),
             smallestId: "",
             getMore: true,
+            lastImageId: "",
             // lastImg: 0,
             imageId: "",
             // imageId: location.hash.slice(1) || 0,
@@ -210,19 +211,21 @@ Vue.component("first-component", {
                     .get(`/more/${smallestId}`)
                     .then(function (response) {
                         console.log("log selfgetmore:", self.getMore);
-                        for (var i = 0; i < response.data.length; i++) {
-                            self.images.push(response.data[i]);
+                        // self.lastImageId = response.data.id;
+                        console.log(response.data);
 
-                            if (
-                                response.data[i].id ===
-                                response.data[i].smallestId
-                            ) {
-                                self.getMore = false;
-                                console.log(
-                                    "log selfgetmore after:",
-                                    self.getMore
-                                );
-                            }
+                        for (var i = 0; i < response.data.images.length; i++) {
+                            self.images.push(response.data.images[i]);
+                            console.log(response.data.images[i]);
+                        }
+
+                        if (
+                            response.data.images[
+                                response.data.images.length - 1
+                            ].id == response.data.lastId
+                        ) {
+                            self.getMore = false;
+                            console.log("log selfgetmore after:", self.getMore);
                         }
                     })
                     .catch(function (err) {

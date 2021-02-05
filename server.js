@@ -79,7 +79,12 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 app.get("/more/:id", (req, res) => {
     db.getMoreImages(req.params.id).then((results) => {
         console.log("results: ", results.rows);
-        res.json(results.rows);
+        db.lastImage().then((data) => {
+            res.json({
+                lastId: data.rows[0].id,
+                images: results.rows,
+            });
+        });
     });
 });
 

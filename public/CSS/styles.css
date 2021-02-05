@@ -70,7 +70,8 @@ button:active:after {
     /* margin: auto; */
     position: fixed;
     /* top: 50px; */
-    left: 25px;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 50px;
     /* right: 25px; */
     background-color: #000;
