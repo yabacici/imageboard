@@ -83,6 +83,9 @@ app.get("/more/:id", (req, res) => {
             res.json({
                 lastId: data.rows[0].id,
                 images: results.rows,
+            }).catch((err) => {
+                console.log("error in loading more results", err);
+                res.json({ success: false });
             });
         });
     });

@@ -58,8 +58,8 @@ Vue.component("second-component", {
                     // obj.username = res.data.username;
                     // self.comments.push(obj);
                     self.comments.push(res.data[0]);
-                    self.username.data = "";
-                    self.comment.data = "";
+                    self.username = "";
+                    self.comment = "";
                 })
                 .catch((err) => console.log("err", err));
         },
