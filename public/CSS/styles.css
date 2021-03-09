@@ -80,6 +80,20 @@ button:active:after {
     z-index: 2;
     text-align: center;
 }
+/* uncommented because i am not sure what it does at the moment */
+/* .overlay p {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+} */
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: 60%;
+}
 
 form {
     display: inline-block;
@@ -103,20 +117,6 @@ h3 {
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     font-style: italic;
     padding: 15px 0;
-}
-
-.overlay p {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
-
-.image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-    height: 60%;
 }
 
 nav {
@@ -167,13 +167,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    
-} */
-
 .container {
     display: grid;
     height: 100vh;
@@ -196,6 +189,10 @@ nav {
     /* hover effect see card:hover */
     transition: 0.8;
     cursor: pointer;
+}
+.card a {
+    text-decoration: none;
+    color: blue;
 }
 
 .card:hover {
