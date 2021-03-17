@@ -91,7 +91,7 @@
                 <!-- All the modal code has to be inside of one div, you can put other divs in it -->
                 <input v-model="username" type="text" name="username" placeholder="username">
                 <input v-model="comment" type="text" name="comment" placeholder="share a few words">   
-                <button @click.prevent="commentHandler">Submit</button>   
+                <button class="overlay-btn" @click.prevent="commentHandler">Submit</button>   
             </div>
             <div class="comment-section">
                 <div class="show-comment" v-for="each in comments">Dear {{each.username}} said:

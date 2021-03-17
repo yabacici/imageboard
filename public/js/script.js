@@ -11,11 +11,13 @@ Vue.component("second-component", {
         };
     },
     props: ["imageId"],
+    // props: ["id"],
 
     mounted: function () {
         var self = this;
         axios.get(`/comments/${this.imageId}`).then(function (res) {
-            console.log(res.data);
+            // axios.get(`/comments/${this.id}`).then(function (res) {
+            console.log("I want to see:", res.data);
             self.username = res.data[0].username;
             self.comment = res.data[0].comment;
             self.comments = res.data;
@@ -23,12 +25,14 @@ Vue.component("second-component", {
     },
 
     watch: {
+        // imageId: function () {
         imageId: function () {
             console.log("modal shows new img");
             var self = this;
 
             axios
                 .get(`/comments/+ ${this.imageId}`)
+                // .get(`/comments/+ ${this.id}`)
                 .then(function (response) {
                     //  // console.log("this inside axios: ", self);
                     self.comments = response.data.comments;
@@ -39,7 +43,9 @@ Vue.component("second-component", {
         },
     },
     methods: {
-        commentHandler: function () {
+        commentHandler: function (e) {
+            e.preventDefault();
+            console.log("about to click");
             var self = this;
             var obj = {
                 comment: this.comment,
@@ -53,11 +59,12 @@ Vue.component("second-component", {
                 // imageId: self.imageId,
 
                 .then(function (res) {
+                    console.log("I am the response:", res);
                     // obj.id = res.data.id;
                     // obj.comment = res.data.comment;
                     // obj.username = res.data.username;
                     // self.comments.push(obj);
-                    self.comments.push(res.data[0]);
+                    self.comments.push(res.data);
                     self.username = "";
                     self.comment = "";
                 })
@@ -87,10 +94,9 @@ Vue.component("first-component", {
         // console.log("component mounted", this.imageId);
         var self = this;
         axios.get(`/images/${this.imageId}`).then(function (response) {
-            // console.log(response.data[0]);
+            // console.log("I am mounted res data:", response.data[0]);
             self.url = response.data[0].url;
             self.username = response.data[0].username;
-
             self.title = response.data[0].title;
             self.description = response.data[0].description;
             self.date = response.data[0].created_at;

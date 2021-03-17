@@ -46,7 +46,7 @@ module.exports.getLastImgId = function (lastId) {
 };
 
 module.exports.getComments = function (imageId) {
-    const q = `SELECT * FROM comments WHERE image_id=$1;`;
+    const q = `SELECT * FROM comments WHERE image_id = $1;`;
     const params = [imageId];
     return db.query(q, params);
 };

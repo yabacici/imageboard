@@ -110,7 +110,8 @@ app.get("/more/:smallestId", (req, res) => {
 //     });
 // });
 app.get("/comments/:imageId", (req, res) => {
-    const imgId = parseInt(req.params.imageId);
+    console.log("comments route");
+    const imgId = req.params.imageId;
     db.getComments(imgId)
         .then((results) => {
             res.json(results.rows);
