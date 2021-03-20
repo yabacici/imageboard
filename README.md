@@ -1,33 +1,37 @@
-# Image Board Project
+# Music Image Board 
 
 The Image Board project was assigned during a 3-month bootcamp at SPICED Academy.
 
 ## Overview
 
-I created a MUSIC IMAGE BOARD where I uploaded album covers from some of my favorite artists.
+This Image Board is a fullstack single-page Vue app.
 
-This is a Single Page Application made with Vue.js where anybody could go and post an image of their choosing, along with a title and a textual description of that image, and others could go and look at that image and make thoughtful remarks about it.
+### My extension of the idea
+
+I adapted the app so I could upload album covers from some of my favorite artists.
+
+### What can a user do?
+
+- Post an image
+- Write a title and a description of that image
+- Write comments
 
 ## Built with
 
 -   HTML
 -   CSS
--   JavaScript
--   Node.js
 -   Vue.js
+-   Node.js
 -   PostgreSQL
 -   AWS
 
 ## Getting Started
 
-### Prerequisites
+```Console
+npm install
+```
 
-A repo for this project has already been created by SPICED Academy instructors.
-
--   npm
-    > npm install
-
-## Usage
+## Screenshots
 
 ![image](https://user-images.githubusercontent.com/71400566/111546955-beb09180-8778-11eb-80cd-9cceb9b70484.png)
 
